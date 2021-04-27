@@ -16,3 +16,8 @@
     transform: rotate(360deg);
   }
 }
+
+.hei,
+.details_container {
+  text-align: center;
+}
