@@ -1,48 +1,32 @@
 
+const select = document.querySelector("select");
+const listContainer = document.querySelector(".list");
 
-// Question 2
-
-const container = document.querySelector(".container");
-const url = "https://www.easports.com/fifa/ultimate-team/api/fut/item";
-const corsUrl = "https://noroffcors.herokuapp.com/" + url;
+const url = "https://foodish-api.herokuapp.com";
 
 
+async function apiCall (){
 
-
-
-
-container.innerHTML = "";
-
-  async function apiCall () {
-
-    try {
-    
-    const result = await fetch(corsUrl)
+  const result = await fetch(url);
+  const response = await result.json();
   
-    const data = await result.json();
 
-    const hoy = data.items;
+  console.log(response);
+  
 
-    
-    for (let i = 0; i < hoy.length; i++) {
+for (let i = 0; i < hoy.length; i++) {
 
-      if (i === 10) {
-        break
-      }
-
-
-    container.innerHTML += ` <a class="card" href="details.html?name=${hoy[i].name}"> <div class=".container"> ${hoy[i].name} ${hoy[i].age} ${hoy[i].position} ${hoy[i].rating} ${hoy[i].club.name} </div> </a> `;
+  if (i === 15) {
+    break
+  }
 
 
- }
-
-  } catch (error) {
-    
-    console.log("error");
-
-
+        listContainer.innerHTML += `<a class="item" href="details.html?id=${hoy.id}">${i}</a>`;
     }
 
 }
 
+    
 apiCall();
+
+

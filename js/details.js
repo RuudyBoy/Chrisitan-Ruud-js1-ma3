@@ -3,46 +3,37 @@ const queryString = document.location.search;
 
 const params = new URLSearchParams(queryString);
 
-const id = params.get("name");
+const id = params.get("id");
 
 
-const url = "https://www.easports.com/fifa/ultimate-team/api/fut/item/" ;
-const corsUrl = "https://noroffcors.herokuapp.com/" + url;
 
+// create the url by addin the id to the end
+const url = "https://api.artic.edu/api/v1/artworks?id=" + id ;
 
-const detailsContainer = document.querySelector(".details-container");
-const idContainer = document.querySelector(".hei");
+const idContainer = document.querySelector(".id");
+const detailContainer = document.querySelector(".details");
+
 idContainer.innerHTML = id;
 
-
-detailsContainer.innerHTML = "";
-
-
-async function fetchBook () {
+async function apiCall() {
     try {
 
-        const response = await fetch(corsUrl);
+        const response = await fetch(url);
         const details = await response.json();
 
         console.log(details);
 
-        createHTML(details);
+        createHTML (details);
 
+
+    } catch (error) {
+        console.log(error);
+        detailContainer.innerHTML = error;
     }
-    
-    catch (error) {
-     console.log("error");
-     detailsContainer.innerHTML = "An error has occured :("
- }
 }
 
-fetchBook ();
-
+apiCall();
 
 function createHTML (details) {
-
-    document.title = `${details.type}`;
-
-    detailsContainer.innerHTML = `<div class="details_container"> ${details.type} ${details.count} ${details.totalResults}  </div>` ;
-    
+    detailContainer.innerHTML += `<h1> ${details.info}  </h1>`
 }
